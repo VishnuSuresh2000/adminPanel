@@ -10,7 +10,6 @@ import 'package:velocity_x/velocity_x.dart';
 
 class AuthService extends ChangeNotifier {
   bool hasUser;
-  Stream firebaseStatusStream = FirebaseAuth.instance.onAuthStateChanged;
   StreamSubscription sub;
 
   AuthService() {
@@ -18,7 +17,7 @@ class AuthService extends ChangeNotifier {
   }
 
   checkUserSatus() {
-    sub = firebaseStatusStream.listen(
+    sub = FirebaseAuth.instance.onAuthStateChanged.listen(
       (event) {
         if (event != null) {
           hasUser = true;
@@ -34,7 +33,6 @@ class AuthService extends ChangeNotifier {
   }
 
   adminLogin(Admin user, BuildContext context) async {
-    
     try {
       if (await Auth().loginWithEmailAndPassword(user)) {
         context.pop();
@@ -61,5 +59,12 @@ class AuthService extends ChangeNotifier {
     } catch (e) {
       print("Error from adminLogOut $e");
     }
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    this.adminLogOut();
+    super.dispose();
   }
 }
