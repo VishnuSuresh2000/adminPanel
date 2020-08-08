@@ -5,8 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ServerCalls {
+  static bool controller=true;
+  static String dns =controller? "http://localhost:80":"https://beru-server.herokuapp.com";
   static BaseOptions _options =
-      BaseOptions(baseUrl: "http://localhost:80", connectTimeout: 10000);
+      BaseOptions(baseUrl: "$dns", connectTimeout: 10000);
   static Dio _client = Dio(_options);
 
   static Future<String> getToken() async {

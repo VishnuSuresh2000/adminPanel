@@ -32,7 +32,7 @@
 !/build/
 /build/*
 !/build/web/
-/web/
+web/index.html
 # Web related
 lib/generated_plugin_registrant.dart
 
