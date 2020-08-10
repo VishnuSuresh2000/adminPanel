@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  ServerCalls.controller = false; //true ? localhost : online
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ServerCalls.controller = false; //true ? localhost : online
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => AuthService())],
       child: MaterialApp(

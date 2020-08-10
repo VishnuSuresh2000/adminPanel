@@ -21,14 +21,18 @@ class ViewProduct extends StatelessWidget {
             title: "Discription : ${product.description}".text.make(),
           ),
           ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            title: Wrap(
+              direction: context.isMobile ? Axis.vertical : Axis.horizontal,
+              alignment: WrapAlignment.spaceAround,
               children: [
                 "Category : ${product.category.name.firstLetterUpperCase()}"
                     .text
                     .make(),
+                20.heightBox,
                 "Cost : ${product.amount}".text.make(),
+                20.heightBox,
                 "Sales : ${product.salles.length ?? 0}".text.make(),
+                20.heightBox,
                 "${product.inKg ? 'In Kg' : 'In Piece'}".text.make()
               ],
             ),
