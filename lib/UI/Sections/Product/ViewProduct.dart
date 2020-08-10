@@ -12,6 +12,7 @@ class ViewProduct extends StatelessWidget {
   ViewProduct({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print("Is Mobile ${context.isMobile}");
     return FractionallySizedBox(
       widthFactor: context.isMobile ? 0.8 : 0.6,
       child: ExpansionTile(
