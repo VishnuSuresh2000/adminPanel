@@ -5,8 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ServerCalls {
-  static bool controller=true;
-  static String dns =controller? "http://localhost:80":"https://beru-server.herokuapp.com";
+  static bool controller = true;
+  static String dns =
+      controller ? "http://localhost:80" : "https://beru-server.herokuapp.com";
   static BaseOptions _options =
       BaseOptions(baseUrl: "$dns", connectTimeout: 10000);
   static Dio _client = Dio(_options);
@@ -28,7 +29,8 @@ class ServerCalls {
 
   static Future<List> serverGet(Sections section) async {
     try {
-      Response res = await _client.get("/${section.string}");
+      Response res = await _client.get("/${section.string}/data",
+          options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
     } catch (e) {
       print("Error from serverTest $e ${e.toString()}");
@@ -67,6 +69,19 @@ class ServerCalls {
     try {
       Response res = await _client.post('/${section.string}/uploadImg/$id',
           data: data,
+          options: Options(headers: {"authorization": await getToken()}));
+      return res.data['data'];
+    } catch (e) {
+      print("Error from serverUploadImg $e ${e.toString()}");
+      throw e;
+    }
+  }
+
+  static Future<String> serverVerifie(
+      Sections section, String id, bool value) async {
+    try {
+      Response res = await _client.put('/${section.string}/verifie/$id',
+          data: json.encode({'value': value}),
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
     } catch (e) {

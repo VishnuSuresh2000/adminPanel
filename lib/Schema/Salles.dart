@@ -20,7 +20,7 @@ class Salles {
          print("For test of farmer ${temp['farmer_id']}");
         this.farmer = User.hasId(temp['farmer_id']);
       } else {
-        this.farmer = User.fromMapTest(temp['farmer_id']);
+        this.farmer = User.fromMap(temp['farmer_id']);
       }
     }
     if (temp['seller_id'] != null) {
@@ -29,7 +29,7 @@ class Salles {
         print("For test of seller ${temp['seller_id']}");
         this.seller = User.hasId(temp['seller_id']);
       } else {
-        this.seller = User.fromMapTest(temp['seller_id']);
+        this.seller = User.fromMap(temp['seller_id']);
       }
     }
     this.count = temp['count'];

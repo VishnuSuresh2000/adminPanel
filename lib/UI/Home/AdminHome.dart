@@ -1,6 +1,7 @@
 import 'package:beru_admin/DataStructure/Sections.dart';
 import 'package:beru_admin/Schema/BeruCategory.dart';
 import 'package:beru_admin/Schema/Product.dart';
+import 'package:beru_admin/Schema/user.dart';
 import 'package:beru_admin/Server/ServerCalls.dart';
 import 'package:beru_admin/UI/CommonFunctions/BeruLodingBar.dart';
 import 'package:beru_admin/UI/Home/BLoCForHome.dart';
@@ -9,6 +10,7 @@ import 'package:beru_admin/UI/Sections/Category/CategoryAddorUpdate.dart';
 import 'package:beru_admin/UI/Sections/Category/CategoryView.dart';
 import 'package:beru_admin/UI/Sections/Product/AddOrUpdateProduct.dart';
 import 'package:beru_admin/UI/Sections/Product/ViewProduct.dart';
+import 'package:beru_admin/UI/Sections/Profile/ViewProfile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,7 @@ class _AdminHomeState extends State<AdminHome> {
     switch (Provider.of<BlocForHome>(context).section) {
       case Sections.category:
       case Sections.product:
+      case Sections.seller:
         return Consumer<BlocForHome>(
           builder: (context, value, child) {
             return FutureBuilder(
@@ -63,9 +66,20 @@ class _AdminHomeState extends State<AdminHome> {
                     break;
                   case ConnectionState.done:
                     if (!snapshot.hasError) {
-                      return ShowData(
-                        data: snapshot.data,
-                      );
+                      return FractionallySizedBox(
+                          widthFactor: context.isMobile ? 0.8 : 0.6,
+                          child: ShowData(
+                            data: snapshot.data,
+                          )).centered();
+                    } else {
+                      print(
+                          "Error from futher builder in home ${snapshot.error}");
+                      return "${snapshot.error.toString()}"
+                          .text
+                          .red700
+                          .bold
+                          .make()
+                          .centered();
                     }
                     break;
                 }
@@ -129,7 +143,7 @@ class ShowData extends StatelessWidget {
             .toList()
             .map((ew) => BeruCategoryView(
                   category: ew,
-                ))
+                ).card.py4.make())
             .toList());
         break;
       case Sections.product:
@@ -138,7 +152,16 @@ class ShowData extends StatelessWidget {
             .toList()
             .map((e) => ViewProduct(
                   product: e,
-                ))
+                ).card.py4.make())
+            .toList());
+      case Sections.seller:
+        return viewBuilder(data
+            .map((e) => User.fromMap(e))
+            .toList()
+            .map((e) => ViewProfile(
+                  user: e,
+                  section: Sections.seller,
+                ).card.py4.make())
             .toList());
       default:
         return "ON Maintance".text.red400.bold.center.make().centered();

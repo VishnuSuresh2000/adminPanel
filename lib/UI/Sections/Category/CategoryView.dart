@@ -11,43 +11,40 @@ class BeruCategoryView extends StatelessWidget {
   const BeruCategoryView({Key key, this.category}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: context.isMobile ? 0.8 : 0.6,
-      child: ExpansionTile(
-        title: Text("${category.name.firstLetterUpperCase()}"),
-        children: [
-          ListTile(
-            title: Text("${category.hasImg ? 'Update' : 'Upload'} Image"),
-            subtitle: Text("The File must be in PNG Formate."),
-            trailing: RaisedButton(
-                child: Text("${category.hasImg ? 'Update' : 'Upload'}"),
-                onPressed: () => uploadImageToServer(
-                    category.id, Sections.category, context)),
-          ),
-          showImage(category.hasImg, Sections.category, category.id, context),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RaisedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AddOrUpdateCategory(
-                      addOrUpadte: false,
-                      category: category,
-                    ),
-                  );
-                },
-                child: "Update".text.make(),
-              ),
-              RaisedButton(
-                onPressed: () {},
-                child: "Disable".text.make(),
-              )
-            ],
-          )
-        ],
-      ).card.py4.make(),
+    return ExpansionTile(
+      title: Text("${category.name.firstLetterUpperCase()}"),
+      children: [
+        ListTile(
+          title: Text("${category.hasImg ? 'Update' : 'Upload'} Image"),
+          subtitle: Text("The File must be in PNG Formate."),
+          trailing: RaisedButton(
+              child: Text("${category.hasImg ? 'Update' : 'Upload'}"),
+              onPressed: () => uploadImageToServer(
+                  category.id, Sections.category, context)),
+        ),
+        showImage(category.hasImg, Sections.category, category.id, context),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            RaisedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AddOrUpdateCategory(
+                    addOrUpadte: false,
+                    category: category,
+                  ),
+                );
+              },
+              child: "Update".text.make(),
+            ),
+            RaisedButton(
+              onPressed: () {},
+              child: "Disable".text.make(),
+            )
+          ],
+        )
+      ],
     );
   }
 }
