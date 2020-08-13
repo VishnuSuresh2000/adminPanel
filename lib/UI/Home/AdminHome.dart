@@ -154,13 +154,14 @@ class ShowData extends StatelessWidget {
                   product: e,
                 ).card.py4.make())
             .toList());
+      case Sections.farmer:
       case Sections.seller:
         return viewBuilder(data
             .map((e) => User.fromMap(e))
             .toList()
             .map((e) => ViewProfile(
                   user: e,
-                  section: Sections.seller,
+                  section: Provider.of<BlocForHome>(context).section,
                 ).card.py4.make())
             .toList());
       default:
