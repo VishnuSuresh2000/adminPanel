@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  ServerCalls.controller = false; //true ? localhost : online
+  ServerCalls.controller = true; //true ? localhost : online
   runApp(MyApp());
 }
 
