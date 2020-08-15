@@ -14,6 +14,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("Server Url ${ServerCalls.dns}");
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => AuthService())],
       child: MaterialApp(
