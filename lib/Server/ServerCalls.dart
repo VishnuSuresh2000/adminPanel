@@ -89,4 +89,17 @@ class ServerCalls {
       throw e;
     }
   }
+
+  static Future<String> serverSallesToShow(String id, bool value) async {
+    try {
+      Response res = await _client.put('/${Sections.salles}/toShow/$id',
+          data: json.encode({"value": value}),
+          options: Options(headers: {"authorization": await getToken()}));
+      return res.data['data'];
+    } catch (e) {
+      print("Error from serverUploadImg $e ${e.toString()}");
+      throw e;
+    }
+  }
+
 }

@@ -5,6 +5,7 @@ class Salles {
   User seller;
   User farmer;
   int count;
+  bool toShow;
 
   String get id {
     return this._id;
@@ -13,26 +14,19 @@ class Salles {
   Salles();
 
   Salles.fromMap(Map<String, dynamic> temp) {
-    this._id = temp['_id'] ?? null;
-    if (temp['farmer_id'] != null) {
-      
-      if (temp['farmer_id'] is String) {
-         print("For test of farmer ${temp['farmer_id']}");
-        this.farmer = User.hasId(temp['farmer_id']);
-      } else {
-        this.farmer = User.fromMap(temp['farmer_id']);
-      }
+    this._id = temp['_id'];
+    if (temp['farmer_id'] is Map) {
+      this.farmer = User.fromMap(temp['farmer_id']);
+    } else if (temp['farmer_id'] is String) {
+      this.farmer = User.fromMap({'_id': temp['farmer_id']});
     }
-    if (temp['seller_id'] != null) {
-      
-      if (temp['seller_id'] is String) {
-        print("For test of seller ${temp['seller_id']}");
-        this.seller = User.hasId(temp['seller_id']);
-      } else {
-        this.seller = User.fromMap(temp['seller_id']);
-      }
+    if (temp['seller_id'] is Map) {
+      this.seller = User.fromMap(temp['seller_id']);
+    } else if (temp['seller_id'] is String) {
+      this.seller = User.fromMap({'_id': temp['seller_id']});
     }
     this.count = temp['count'];
+    this.toShow = temp['toShow'] ?? false;
   }
 
   Map<String, dynamic> toMap() {

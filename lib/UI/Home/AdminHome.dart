@@ -11,6 +11,7 @@ import 'package:beru_admin/UI/Sections/Category/CategoryView.dart';
 import 'package:beru_admin/UI/Sections/Product/AddOrUpdateProduct.dart';
 import 'package:beru_admin/UI/Sections/Product/ViewProduct.dart';
 import 'package:beru_admin/UI/Sections/Profile/ViewProfile.dart';
+import 'package:beru_admin/UI/Sections/Salles/showSalles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +46,7 @@ class _AdminHomeState extends State<AdminHome> {
       case Sections.category:
       case Sections.product:
       case Sections.seller:
+      case Sections.salles:
         return Consumer<BlocForHome>(
           builder: (context, value, child) {
             return FutureBuilder(
@@ -164,6 +166,15 @@ class ShowData extends StatelessWidget {
                   section: Provider.of<BlocForHome>(context).section,
                 ).card.py4.make())
             .toList());
+      case Sections.salles:
+        return viewBuilder(data
+            .map((e) => Product.fromMap(e))
+            .toList()
+            .map((e) => ShowSalles(
+                  e: e,
+                ).card.py4.make())
+            .toList());
+        break;
       default:
         return "ON Maintance".text.red400.bold.center.make().centered();
     }
