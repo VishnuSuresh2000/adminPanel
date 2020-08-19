@@ -28,27 +28,24 @@ class ShowSalles extends StatelessWidget {
             ],
           ),
         ),
-        ...e.salles
-            .map((ef) => ListTile(
-                  title: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    direction:
-                        context.isMobile ? Axis.vertical : Axis.horizontal,
-                    alignment: WrapAlignment.spaceAround,
-                    children: [
-                      "Count : ${ef.count} ${e.inKg ? 'Kg' : 'Pices'}"
-                          .text
-                          .make(),
-                      "Seller : ${ef.seller.fullName}".text.make(),
-                      "Farmer : ${ef.farmer.fullName}".text.make(),
-                      RaisedButton(
-                        onPressed: () => changeShow(context, ef),
-                        child: "Show : ${ef.toShow ? 'Yes' : 'No'}".text.make(),
-                      )
-                    ],
-                  ),
-                ))
-            .toList()
+        ...e.salles.map((ef) {
+          return ListTile(
+            title: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              direction: context.isMobile ? Axis.vertical : Axis.horizontal,
+              alignment: WrapAlignment.spaceAround,
+              children: [
+                "Count : ${ef.count} ${e.inKg ? 'Kg' : 'Pices'}".text.make(),
+                "Seller : ${ef.seller.fullName}".text.make(),
+                "Farmer : ${ef.farmer.fullName}".text.make(),
+                RaisedButton(
+                  onPressed: () => changeShow(context, ef),
+                  child: "Show : ${ef.toShow ? 'Yes' : 'No'}".text.make(),
+                )
+              ],
+            ),
+          );
+        }).toList()
       ],
     );
   }
