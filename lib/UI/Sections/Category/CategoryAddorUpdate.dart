@@ -40,6 +40,14 @@ class AddOrUpdateCategory extends StatelessWidget {
                         category.name = value;
                       },
                     ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          hintText: "Enter Categoty In Second language"),
+                      initialValue: category.name2 ?? null,
+                      onSaved: (String value) {
+                        category.name2 = value ?? null;
+                      },
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -54,9 +62,9 @@ class AddOrUpdateCategory extends StatelessWidget {
                                 );
                                 String res = addOrUpadte
                                     ? await ServerCalls.serverCreate(
-                                        category.toMapCreate(), Sections.category)
+                                        category.toMap(), Sections.category)
                                     : await ServerCalls.serverUpdate(
-                                        category.toMapCreate(),
+                                        category.toMap(),
                                         category.id,
                                         Sections.category);
                                 Navigator.of(context).pop();
@@ -67,7 +75,8 @@ class AddOrUpdateCategory extends StatelessWidget {
                                     cakllback: () {
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil(
-                                              AdminHome.route, (route) => false);
+                                              AdminHome.route,
+                                              (route) => false);
                                     });
                               } catch (e) {
                                 print("Error form Submit Button $e");

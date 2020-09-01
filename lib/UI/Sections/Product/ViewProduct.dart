@@ -13,10 +13,13 @@ class ViewProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: "${product.name.firstLetterUpperCase()}".text.make(),
+      title: "${product.name.firstLetterUpperCase()}  ${product.name2}".text.make(),
       children: [
         ListTile(
           title: "Discription : ${product.description}".text.make(),
+        ),
+        ListTile(
+          title: "Discription On Second Language : ${product.description2}".text.make(),
         ),
         ListTile(
           title: Wrap(
@@ -31,7 +34,9 @@ class ViewProduct extends StatelessWidget {
               20.heightBox,
               "Sales : ${product.salles.length ?? 0}".text.make(),
               20.heightBox,
-              "${product.inKg ? 'In Kg' : 'In Piece'}".text.make()
+              "${product.inKg ? 'In Kg' : 'In Piece'}".text.make(),
+              "Gst : ${product.gstIn}".text.make(),
+              20.heightBox,
             ],
           ),
         ),

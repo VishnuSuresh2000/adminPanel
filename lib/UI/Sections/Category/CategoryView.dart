@@ -12,7 +12,7 @@ class BeruCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text("${category.name.firstLetterUpperCase()}"),
+      title: Text("${category.name.firstLetterUpperCase()} ${category.name2}"),
       children: [
         ListTile(
           title: Text("${category.hasImg ? 'Update' : 'Upload'} Image"),

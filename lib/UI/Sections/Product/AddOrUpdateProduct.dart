@@ -91,7 +91,8 @@ class AddOrUpdateProduct extends StatelessWidget {
           ),
           TextFormField(
             initialValue: product.name ?? null,
-            decoration: InputDecoration(hintText: "Enter Product Name"),
+            decoration: InputDecoration(
+                hintText: "Enter Product Name In First language (English)"),
             validator: (value) {
               if (value.isEmpty) {
                 return "Please EnterName";
@@ -103,11 +104,19 @@ class AddOrUpdateProduct extends StatelessWidget {
             },
           ),
           TextFormField(
+            initialValue: product.name2 ?? null,
+            decoration: InputDecoration(
+                hintText: "Enter Product Name in Second language"),
+            onSaved: (value) {
+              product.name2 = value ?? null;
+            },
+          ),
+          TextFormField(
             initialValue: product.amount?.toString(),
-            decoration: InputDecoration(hintText: "Enter Product Amount"),
+            decoration: InputDecoration(hintText: "Enter Product Base Amount"),
             validator: (value) {
               if (value.isEmpty) {
-                return "Please Enter Amount";
+                return "Please Enter Base Amount";
               } else if (value.isNotEmpty) {
                 try {
                   int.parse(value);
@@ -122,8 +131,27 @@ class AddOrUpdateProduct extends StatelessWidget {
             },
           ),
           TextFormField(
+            initialValue: product.gstIn?.toString(),
+            decoration: InputDecoration(hintText: "Enter Product Gst"),
+            validator: (value) {
+              if (value.isEmpty) {
+                return "Please Enter GST";
+              } else if (value.isNotEmpty) {
+                try {
+                  int.parse(value);
+                } catch (e) {
+                  return "Must be GST";
+                }
+              }
+              return null;
+            },
+            onSaved: (value) {
+              product.gstIn = int.parse(value);
+            },
+          ),
+          TextFormField(
             initialValue: product.description ?? null,
-            decoration: InputDecoration(hintText: "Enter Product Discription"),
+            decoration: InputDecoration(hintText: "Enter Product Discription "),
             validator: (value) {
               if (value.isEmpty) {
                 return "Please Discription";
@@ -132,6 +160,14 @@ class AddOrUpdateProduct extends StatelessWidget {
             },
             onSaved: (value) {
               product.description = value;
+            },
+          ),
+          TextFormField(
+            initialValue: product.description2 ?? null,
+            decoration: InputDecoration(
+                hintText: "Enter Product Discription in Second language"),
+            onSaved: (value) {
+              product.description2 = value ?? null;
             },
           ),
           Selector<StateHandlerForProduct, Tuple2<bool, Function>>(
@@ -161,11 +197,9 @@ class AddOrUpdateProduct extends StatelessWidget {
                       );
                       var res = addOrUpdate
                           ? await ServerCalls.serverCreate(
-                              product.toMapCreate(), Sections.product)
+                              product.toMap(), Sections.product)
                           : await ServerCalls.serverUpdate(
-                              product.toMapCreate(),
-                              product.id,
-                              Sections.product);
+                              product.toMap(), product.id, Sections.product);
                       context.pop();
                       alertWithCallBack(
                           cakllback: () => context.nav.pushNamedAndRemoveUntil(
