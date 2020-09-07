@@ -12,6 +12,7 @@ import 'package:beru_admin/UI/Sections/Product/AddOrUpdateProduct.dart';
 import 'package:beru_admin/UI/Sections/Product/ViewProduct.dart';
 import 'package:beru_admin/UI/Sections/Profile/ViewProfile.dart';
 import 'package:beru_admin/UI/Sections/Salles/showSalles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +76,7 @@ class _AdminHomeState extends State<AdminHome> {
                           )).centered();
                     } else {
                       print(
-                          "Error from futher builder in home ${snapshot.error}");
+                          "Error from futher builder in home ${snapshot.error} ");
                       return "${snapshot.error.toString()}"
                           .text
                           .red700

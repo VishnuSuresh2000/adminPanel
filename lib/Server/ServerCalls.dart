@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:beru_admin/CustomException/BeruException.dart';
 import 'package:beru_admin/DataStructure/Sections.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ServerCalls {
   static bool controller = true;
   static String dns =
-      controller ? "http://localhost:5000" : "https://beru-server.herokuapp.com";
+      controller ? "http://localhost:80" : "http://3.7.55.146:5000";
   static BaseOptions _options =
       BaseOptions(baseUrl: "$dns", connectTimeout: 10000);
   static Dio _client = Dio(_options);
@@ -32,8 +32,11 @@ class ServerCalls {
       Response res = await _client.get("/${section.string}/data",
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
+    } on DioError catch (e) {
+      print("Error from serverGet $e ${e.toString()}");
+          throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
     } catch (e) {
-      print("Error from serverTest $e ${e.toString()}");
+      print("Error from serverGet $e ${e.toString()}");
       throw e;
     }
   }
@@ -45,8 +48,11 @@ class ServerCalls {
           data: json.encode(data),
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
+    } on DioError catch (e) {
+      print("Error from serverCreate $e ${e.toString()}");
+          throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
     } catch (e) {
-      print("Error from serverCreat $e ${e.toString()}");
+      print("Error from serverCreate $e ${e.toString()}");
       throw e;
     }
   }
@@ -58,8 +64,11 @@ class ServerCalls {
           data: json.encode(data),
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
+    } on DioError catch (e) {
+      print("Error from serverUpdate $e ${e.toString()}");
+      throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
     } catch (e) {
-      print("Error from serverCreat $e ${e.toString()}");
+      print("Error from serverUpdate $e ${e.toString()}");
       throw e;
     }
   }
@@ -71,7 +80,10 @@ class ServerCalls {
           data: data,
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
-    } catch (e) {
+    } on DioError catch (e) {
+      print("Error from serverUploadImg $e ${e.toString()}");
+      throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
+    }catch (e) {
       print("Error from serverUploadImg $e ${e.toString()}");
       throw e;
     }
@@ -84,8 +96,11 @@ class ServerCalls {
           data: json.encode({'value': value}),
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
-    } catch (e) {
-      print("Error from serverUploadImg $e ${e.toString()}");
+    } on DioError catch (e) {
+      print("Error from serverVerifie $e ${e.toString()}");
+      throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
+    }catch (e) {
+      print("Error from serverVerifie $e ${e.toString()}");
       throw e;
     }
   }
@@ -96,13 +111,12 @@ class ServerCalls {
           data: json.encode({"value": !value}),
           options: Options(headers: {"authorization": await getToken()}));
       return res.data['data'];
-    }on DioError catch(e){
-      print("Error from serverUploadImg $e ${e.response.data}");
-      throw e;
-    }catch (e) {
+    } on DioError catch (e) {
+      print("Error from serverSallesToShow $e ${e.toString()}");
+      throw BeruUnKnownError(error: " ${e.toString()} ${e?.response?.data?.toString()}");
+    } catch (e) {
       print("Error from serverUploadImg $e ${e.toString()}");
       throw e;
     }
   }
-
 }
