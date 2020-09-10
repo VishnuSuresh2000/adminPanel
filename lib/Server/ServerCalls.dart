@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ServerCalls {
   static bool controller = true;
   static String dns =
-      controller ? "http://localhost:80" : "http://3.7.55.146:5000";
+      controller ? "http://localhost:80" : "https://api.beru.co.in";
   static BaseOptions _options =
       BaseOptions(baseUrl: "$dns", connectTimeout: 10000);
   static Dio _client = Dio(_options);
