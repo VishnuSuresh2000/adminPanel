@@ -63230,7 +63230,7 @@ s($,"avz","ad4",function(){return function DartObject(a){this.o=a}})
 s($,"atT","cV",function(){return H.mc(H.anl(H.nh(H.c([1],t.a))).buffer,0,null).getInt8(0)===1?C.ac:C.wc})
 s($,"aw1","aat",function(){return new P.Bm(P.A(t.N,H.ag("yQ<l9>?")))})
 s($,"awc","ad9",function(){return new P.Xw(P.A(t.N,H.ag("aH(k)")),P.A(t.S,t.Dz))})
-r($,"aun","aaq",function(){return $.afJ?"http://localhost:80":"http://3.7.55.146:5000"})
+r($,"aun","aaq",function(){return $.afJ?"http://localhost:80":"https://api.beru.co.in"})
 r($,"aum","aja",function(){return B.adw($.aaq(),1e4)})
 r($,"aul","ra",function(){var q=null,p=$.aja(),o=new U.Qr(q,new L.De(H.c([],H.ag("v<hM*>")),new L.ul(),new L.ul(),new L.ul()),q,new Q.Qh(),!1)
 o.fA$=p==null?B.adw(q,q):p
